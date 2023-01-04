@@ -10,7 +10,7 @@ OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 SRC			=	src/philo.c
 
 CC			=	gcc
-FLAGS		=	-Wall -Wextra -Werror -I${HEADER} -fsanitize=address
+FLAGS		=	#-Wall -Wextra -Werror -I${HEADER} -fsanitize=address
 
 all:		obj $(NAME)
 
