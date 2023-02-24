@@ -12,7 +12,13 @@ typedef	struct s_philo
 	int		time_to_die;
 	int		time_to_eat;
 	int		time_to_sleep;
-	int		times_to_eat;
+	int		nbr_to_eat;
 }			t_philo;
+
+typedef struct s_forks
+{
+	int		nbr_forks;
+}			t_forks;
+
 
 #endif
