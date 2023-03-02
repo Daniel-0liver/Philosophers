@@ -6,11 +6,25 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 23:26:09 by dateixei          #+#    #+#             */
-/*   Updated: 2023/02/28 14:25:21 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:21:11 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int	ft_atoi(char *str)
+{
+	int	i;
+	int	sig;
+
+	i = 0;
+	sig = 1;
+	while (str[i] == ' ' || str[i] == '\f')
+		i++;
+	if (str[i] == '-')
+		sig = -1;
+	
+}
 
 int	main(int argc, char *argv[])
 {
