@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:23:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/02 14:24:50 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/03 23:31:38 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,25 @@ void	is_non_number(char **argv, t_stacks *stack)
 		}
 		stack->i++;
 	}
+}
+
+int	ft_atoi(char *str)
+{
+	int	i;
+	int	sig;
+	int	result;
+
+	i = 0;
+	sig = 1;
+	result = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\f'))
+		i++;
+	if (str[i] && str[i] == '-')
+	{
+		sig = -1;
+		i++;
+	}
+	while (str[i] && (str[i] >= '0' || str[i] <= '9'))
+		result = result * 10 + (str[i++] - '0');
+	return (result * sig);
 }
