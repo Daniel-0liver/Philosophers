@@ -7,7 +7,8 @@ NAME		=	philo
 HEADER		=	./includes
 
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
-SRC			=	src/philo.c
+SRC			=	src/philo.c \
+				src/philo_utils.c
 
 CC			=	gcc
 FLAGS		=	-pthread #-Wall -Wextra -Werror -I${HEADER} -fsanitize=address

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:23:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/03 23:31:38 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/04 14:25:47 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,34 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-void	is_non_number(char **argv, t_stacks *stack)
+void	is_non_number(char **argv, t_philo *philo)
 {
 	int	j;
 
-	stack->i = 1;
-	while (argv[stack->i])
+	philo->i = 1;
+	while (argv[philo->i])
 	{
 		j = 0;
-		while ((ft_isdigit(argv[stack->i][j])) == 1 && argv[stack->i][j])
+		while ((ft_isdigit(argv[philo->i][j])) == 1 && argv[philo->i][j])
 			j++;
-		if ((argv[stack->i][j] == '-' || argv[stack->i][j] == '+')
-			&& (ft_isdigit(argv[stack->i][j + 1])))
+		if ((argv[philo->i][j] == '-' || argv[philo->i][j] == '+')
+			&& (ft_isdigit(argv[philo->i][j + 1])))
 		{
 			j++;
-			while ((ft_isdigit(argv[stack->i][j]) == 1))
+			while ((ft_isdigit(argv[philo->i][j]) == 1))
 				j++;
 		}
-		if (argv[stack->i][j] && ft_isdigit(argv[stack->i][j]) == 0)
-		{
-			free(stack->stack_a);
-			stack->stack_a = NULL;
-			write(STDERR_FILENO, "Error\n", 6);
-			exit(-1);
-		}
-		stack->i++;
+		if (argv[philo->i][j] && ft_isdigit(argv[philo->i][j]) == 0)
+			philo->error = 1;
+		philo->i++;
 	}
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(char *str, t_philo *philo)
 {
-	int	i;
-	int	sig;
-	int	result;
+	int		i;
+	int		sig;
+	long	result;
 
 	i = 0;
 	sig = 1;
@@ -66,5 +61,7 @@ int	ft_atoi(char *str)
 	}
 	while (str[i] && (str[i] >= '0' || str[i] <= '9'))
 		result = result * 10 + (str[i++] - '0');
+	if (result > 2147483647 || result < -2147483648)
+		philo->error = 1;
 	return (result * sig);
 }
