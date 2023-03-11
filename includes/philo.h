@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 typedef	struct s_philo
 {
@@ -15,18 +16,16 @@ typedef	struct s_philo
 	int					time_to_sleep;
 	int					nbr_to_eat;
 	int					error;
-	pthread_mutex_t		philo_mutex;
+	int					time_sec;
+	pthread_t			philo_mutex;
+	struct	timeval		time;
 }			t_philo;
 
-typedef struct s_forks
-{
-	int					nbr_forks;
-	pthread_t			right_forks;
-	pthread_t			left_forks;
-}			t_forks;
 
 //Utils
 int		ft_atoi(char *str, t_philo *philo);
+int		get_timestamp(t_philo *philo);
 void	is_non_number(char **argv, t_philo *philo);
+
 
 #endif

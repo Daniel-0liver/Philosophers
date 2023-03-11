@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:23:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/04 15:25:01 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:51:18 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,12 @@ int	ft_atoi(char *str, t_philo *philo)
 	if (result > 2147483647 || result < -2147483648)
 		philo->error = 1;
 	return (result * sig);
+}
+
+int	get_timestamp(t_philo *philo)
+{
+	struct	timeval	get_time;
+	gettimeofday(&get_time, NULL);
+	return ((int) (get_time.tv_sec * 1000 + get_time.tv_usec / 1000)
+		- (philo->time.tv_sec * 1000 + philo->time.tv_usec / 1000));
 }

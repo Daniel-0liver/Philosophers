@@ -11,7 +11,7 @@ SRC			=	src/philo.c \
 				src/philo_utils.c
 
 CC			=	gcc
-FLAGS		=	-pthread #-Wall -Wextra -Werror -I${HEADER} -fsanitize=address
+FLAGS		=	-pthread -Wall -Wextra -Werror -I${HEADER} -fsanitize=address
 
 all:		obj $(NAME)
 
