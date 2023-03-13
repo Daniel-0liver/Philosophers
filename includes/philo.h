@@ -22,6 +22,7 @@ typedef	struct s_philo
 }			t_philo;
 
 
+
 //Utils
 int		ft_atoi(char *str, t_philo *philo);
 int		get_timestamp(t_philo *philo);

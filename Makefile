@@ -11,19 +11,19 @@ SRC			=	src/philo.c \
 				src/philo_utils.c
 
 CC			=	gcc
-FLAGS		=	-pthread -Wall -Wextra -Werror -I${HEADER} -fsanitize=address
+FLAGS		=	-pthread -Wall -Wextra -Werror -I${HEADER} -fsanitize=address -o
 
 all:		obj $(NAME)
 
 $(NAME):	$(OBJ)
-			$(CC) $(FLAGS) -o $@ $^
+			$(CC) $(FLAGS) $@ $^
 
 obj:
 			@mkdir -p obj
 
-obj/%.o:	src/%.c
+obj/%.o:	src/%.c ./includes/philo.h
+			$(CC) $(FLAGS) $@ -c $<
 			@echo "$@ $(GREEN)created$(RESET)"
-			$(CC) $(FLAGS) $(INC) -o $@ -c $<
 
 clean:
 			@rm -rf $(OBJ) obj

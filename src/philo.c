@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 23:26:09 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/11 21:06:01 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:53:26 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	check_args(t_philo *philo, int argc, char **argv)
 int	main(int argc, char *argv[])
 {
 	t_philo	philo;
-		
+
 	gettimeofday(&philo.time, NULL);
 	if (argc < 5 || argc > 6) 
 	{

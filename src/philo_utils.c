@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:23:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/11 20:51:18 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/11 22:28:09 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,3 +73,4 @@ int	get_timestamp(t_philo *philo)
 	return ((int) (get_time.tv_sec * 1000 + get_time.tv_usec / 1000)
 		- (philo->time.tv_sec * 1000 + philo->time.tv_usec / 1000));
 }
+
