@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:23:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/11 22:28:09 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/25 02:22:15 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,31 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-void	is_non_number(char **argv, t_philo *philo)
+void	is_non_number(char **argv, t_data *data)
 {
 	int	j;
+	int i;
 
-	philo->i = 1;
-	while (argv[philo->i])
+	i = 1;
+	while (argv[i])
 	{
 		j = 0;
-		while ((ft_isdigit(argv[philo->i][j])) == 1 && argv[philo->i][j])
+		while ((ft_isdigit(argv[i][j])) == 1 && argv[i][j])
 			j++;
-		if ((argv[philo->i][j] == '-' || argv[philo->i][j] == '+')
-			&& (ft_isdigit(argv[philo->i][j + 1])))
+		if ((argv[i][j] == '-' || argv[i][j] == '+')
+			&& (ft_isdigit(argv[i][j + 1])))
 		{
 			j++;
-			while ((ft_isdigit(argv[philo->i][j]) == 1))
+			while ((ft_isdigit(argv[i][j]) == 1))
 				j++;
 		}
-		if (argv[philo->i][j] && ft_isdigit(argv[philo->i][j]) == 0)
-			philo->error = 1;
-		philo->i++;
+		if (argv[i][j] && ft_isdigit(argv[i][j]) == 0)
+			data->table.error = 1;
+		i++;
 	}
 }
 
-int	ft_atoi(char *str, t_philo *philo)
+int	ft_atoi(char *str, t_data *data)
 {
 	int		i;
 	int		sig;
@@ -62,15 +63,15 @@ int	ft_atoi(char *str, t_philo *philo)
 	while (str[i] && (str[i] >= '0' || str[i] <= '9'))
 		result = result * 10 + (str[i++] - '0');
 	if (result > 2147483647 || result < -2147483648)
-		philo->error = 1;
+		data->table.error = 1;
 	return (result * sig);
 }
 
-int	get_timestamp(t_philo *philo)
+int	get_timestamp(t_data *data)
 {
 	struct	timeval	get_time;
 	gettimeofday(&get_time, NULL);
 	return ((int) (get_time.tv_sec * 1000 + get_time.tv_usec / 1000)
-		- (philo->time.tv_sec * 1000 + philo->time.tv_usec / 1000));
+		- (data->time.tv_sec * 1000 +  data->time.tv_usec / 1000));
 }
 

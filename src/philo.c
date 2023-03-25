@@ -6,42 +6,39 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 23:26:09 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/24 19:56:56 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/25 02:23:05 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	check_args(t_philo *philo, int argc, char **argv)
+void	check_args(t_data *data, int argc, char **argv)
 {
-	is_non_number(argv, philo);
-	if (philo->error == 1)
+	data->table.error = 0;
+	is_non_number(argv, data);
+	if (data->table.error == 1)
 		return ;
-	philo->philo_nbr = ft_atoi(argv[1], philo);
-	philo->time_to_die = ft_atoi(argv[2], philo);
-	philo->time_to_eat = ft_atoi(argv[3], philo);
-	philo->time_to_sleep = ft_atoi(argv[4], philo);
+	data->table.philo_nbr = ft_atoi(argv[1], data);
+	data->table.time_to_die = ft_atoi(argv[2], data);
+	data->table.time_to_eat = ft_atoi(argv[3], data);
+	data->table.time_to_sleep = ft_atoi(argv[4], data);
 	if (argc == 6)
-		philo->nbr_to_eat = ft_atoi(argv[5], philo);
+		data->table.nbr_to_eat = ft_atoi(argv[5], data);
 	else
-		philo->nbr_to_eat = 2147483647;
+		data->table.nbr_to_eat = 2147483647;
 }
 
 int	main(int argc, char *argv[])
 {
-	t_philo	philo;
-
-	gettimeofday(&philo.time, NULL);
+	t_data	data;
+	
+	gettimeofday(&data.time, NULL);
 	if (argc < 5 || argc > 6) 
 	{
         printf("Usage: ./philo num_of_philosophers time_to_die time_to_eat time_to_sleep [num_of_times_each_philosopher_must_eat]\n");
         return 1;
     }
-	check_args(&philo, argc, argv);
-	for (size_t i = 0; i < 10; i++)
-	{
-		printf("%i\n", get_timestamp(&philo));
-	}
+	check_args(&data, argc, argv);
 	return (0);
 }
 
