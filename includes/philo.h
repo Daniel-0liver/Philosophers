@@ -21,6 +21,13 @@ typedef struct s_table
 
 typedef	struct s_philo
 {
+	int					id;
+	int					forks;
+	int					life;
+	int					times_eated;
+	int					t_last_meal;
+	int					t_last_sleep;
+	int					t_last_think;
 	t_data				*data;
 	pthread_t			thread;
 	pthread_mutex_t		mutex;
@@ -28,10 +35,13 @@ typedef	struct s_philo
 
 typedef struct s_data
 {
-	int					time_sec;
+	int					dead;
+	int					count;
+	int					is_running;
 	t_philo				*philo;
 	t_table				table;
 	struct	timeval		time;
+	pthread_mutex_t		data_race;
 }			t_data;
 
 //Utils

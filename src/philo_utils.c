@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:23:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/25 02:22:15 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/26 22:27:52 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,29 @@ void	is_non_number(char **argv, t_data *data)
 int	ft_atoi(char *str, t_data *data)
 {
 	int		i;
-	int		sig;
 	long	result;
 
 	i = 0;
-	sig = 1;
 	result = 0;
 	while (str[i] && (str[i] == ' ' || str[i] == '\f'))
 		i++;
 	if (str[i] && str[i] == '-')
 	{
-		sig = -1;
-		i++;
+		data->table.error = 1;
+		return (0);
 	}
 	while (str[i] && (str[i] >= '0' || str[i] <= '9'))
 		result = result * 10 + (str[i++] - '0');
 	if (result > 2147483647 || result < -2147483648)
 		data->table.error = 1;
-	return (result * sig);
+	return (result);
 }
 
 int	get_timestamp(t_data *data)
 {
 	struct	timeval	get_time;
+
 	gettimeofday(&get_time, NULL);
 	return ((int) (get_time.tv_sec * 1000 + get_time.tv_usec / 1000)
 		- (data->time.tv_sec * 1000 +  data->time.tv_usec / 1000));
 }
-
