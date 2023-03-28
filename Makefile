@@ -12,7 +12,7 @@ SRC			=	src/philo.c \
 				src/philo_thread_init.c
 
 CC			=	gcc
-FLAGS		=	-pthread -Wall -Wextra -Werror -I${HEADER} -fsanitize=address
+FLAGS		=	-pthread -I${HEADER} #-Wall -Wextra -Werror -fsanitize=address
 
 all:		obj $(NAME)
 

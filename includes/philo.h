@@ -46,15 +46,16 @@ typedef struct s_data
 }			t_data;
 
 //Utils
-int		ft_atoi(char *str, t_data *data);
 int		get_timestamp(t_data *data);
+int		ft_atoi(char *str, t_data *data);
 void	is_non_number(char **argv, t_data *data);
 void	check_args(t_data *data, int argc, char **argv);
 
 //Thread Init
-int		can_start_run(t_data *data, int id);
-void	*start_run(void *philo);
+void	*start_run(t_philo *p);
+void	*verify_run(void *philo);
 void	init_thread(t_data *data);
+int		can_start_run(t_data *data, int id);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/27 21:00:47 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:34:25 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ int	can_start_run(t_data *data, int id)
 		gettimeofday(&data->time, NULL);
 		data->is_running = 1;
 	}
+	pthread_mutex_unlock(&data->data_race);
 	return (data->is_running);
 }
 
-void	*start_run(void *philo)
+void	*verify_run(void *philo)
 {
 	t_philo	*p;
 	
@@ -34,37 +35,32 @@ void	*start_run(void *philo)
 			break ;
 	}
 	p->life = 0 + p->data->table.time_to_die;
-	
+	start_run(p);
 	return(0);
 }
+
+// void	*start_run(t_philo *p)
+// {
+	
+// }
 
 void	init_thread(t_data *data)
 {
 	data->count = 0;
 	pthread_mutex_init(&data->data_race, NULL);
-	printf("%d here\n", data->table.philo_nbr);
 	while (data->count < data->table.philo_nbr)
 	{
 		data->philo[data->count].data = data;
 		data->philo[data->count].id = data->count;
 		data->philo[data->count].forks = 1;
-		puts("Worked\n");
 		data->philo[data->count].times_eated = 0;
 		pthread_mutex_init(&data->philo[data->count].mutex, NULL);
-		data->philo->error = pthread_create(&data->philo[data->count].thread,
-			0, &start_run, (void *)&data->philo[data->count]);
-		if(data->philo->error)
-			return ;
+		pthread_create(&data->philo[data->count].thread,
+			0, &verify_run, (void *)&data->philo[data->count]);
 		data->count++;
 	}
-	while (data->count >= 0)
-	{
+	while (data->count-- > 0)
 		pthread_join(data->philo[data->count].thread, NULL);
-		data->count--;
-	}
-	while (data->count < data->table.philo_nbr)
-	{
+	while (++data->count < data->table.philo_nbr)
 		pthread_mutex_destroy(&data->philo[data->count].mutex);
-		data->count++;
-	}
 }
