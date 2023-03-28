@@ -22,6 +22,7 @@ typedef struct s_table
 typedef	struct s_philo
 {
 	int					id;
+	int					error;
 	int					forks;
 	int					life;
 	int					times_eated;
@@ -48,5 +49,12 @@ typedef struct s_data
 int		ft_atoi(char *str, t_data *data);
 int		get_timestamp(t_data *data);
 void	is_non_number(char **argv, t_data *data);
+void	check_args(t_data *data, int argc, char **argv);
+
+//Thread Init
+int		can_start_run(t_data *data, int id);
+void	*start_run(void *philo);
+void	init_thread(t_data *data);
+
 
 #endif

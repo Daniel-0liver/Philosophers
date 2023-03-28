@@ -8,22 +8,29 @@ HEADER		=	./includes
 
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 SRC			=	src/philo.c \
-				src/philo_utils.c
+				src/philo_utils.c \
+				src/philo_thread_init.c
 
 CC			=	gcc
-FLAGS		=	-pthread -Wall -Wextra -Werror -I${HEADER} -fsanitize=address -o
+FLAGS		=	-pthread -Wall -Wextra -Werror -I${HEADER} -fsanitize=address
 
 all:		obj $(NAME)
 
 $(NAME):	$(OBJ)
-			$(CC) $(FLAGS) $@ $^
+			$(CC) $(FLAGS) -o $@ $^
 
 obj:
 			@mkdir -p obj
 
 obj/%.o:	src/%.c ./includes/philo.h
-			$(CC) $(FLAGS) $@ -c $<
+			$(CC) $(FLAGS) -o $@ -c $<
 			@echo "$@ $(GREEN)created$(RESET)"
+
+valgrind:	all
+	valgrind --leak-check=full --show-leak-kinds=all --quiet ./philo 2 3 1 4 5
+
+hellgrind:	all
+	valgrind --quiet --tool=helgrind ./philo 2 3 1 4 5
 
 clean:
 			@rm -rf $(OBJ) obj
