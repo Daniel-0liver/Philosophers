@@ -6,22 +6,11 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 23:26:09 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/28 17:21:21 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:30:04 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	free_philo(char *str, t_data *d, int *exit)
-{
-	*exit = 1;
-	if (d)
-	{
-		free(d->philo);
-	}
-	if (str)
-		printf("%s", str);
-}
 
 int	main(int argc, char *argv[])
 {

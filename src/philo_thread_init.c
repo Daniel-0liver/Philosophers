@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/28 17:34:25 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:56:04 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*verify_run(void *philo)
 	t_philo	*p;
 	
 	p = ((t_philo *)philo);
-	while ((p->data->table.philo_nbr - 1) != p->id || can_start_run(p->data, p->id))
+	while ((p->data->table.philo_nbr - 1) != p->id || !can_start_run(p->data, p->id))
 	{
 		if (p->data->time.tv_sec)
 			break ;
@@ -39,10 +39,17 @@ void	*verify_run(void *philo)
 	return(0);
 }
 
-// void	*start_run(t_philo *p)
-// {
-	
-// }
+void	*start_run(t_philo *p)
+{
+	pthread_mutex_lock(&p->data->data_race);
+	printf("%i Philo: %d\n", get_timestamp(p->data), p->id);
+	usleep(100000);
+	printf("%i Philo: %d\n", get_timestamp(p->data), p->id);
+	usleep(100000);
+	printf("%i Philo: %d\n", get_timestamp(p->data), p->id);
+	pthread_mutex_unlock(&p->data->data_race);
+	return (0);
+}
 
 void	init_thread(t_data *data)
 {
