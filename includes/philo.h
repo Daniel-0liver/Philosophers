@@ -55,7 +55,7 @@ void	check_args(t_data *data, int argc, char **argv);
 void	*start_run(t_philo *p);
 void	*verify_run(void *philo);
 void	init_thread(t_data *data);
+int		is_dead(t_philo *philo);
 int		can_start_run(t_data *data, int id);
-
 
 #endif

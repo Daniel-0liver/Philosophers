@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/03/29 20:56:04 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/01 02:39:23 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ int	can_start_run(t_data *data, int id)
 	}
 	pthread_mutex_unlock(&data->data_race);
 	return (data->is_running);
+}
+
+int	is_dead(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->data_race);
+	if (philo->data->dead == 0 && philo->life < get_timestamp(philo->data))
+	{
+		philo->data->dead = 1;
+		pthread_mutex_unlock(&philo->data->data_race);
+		printf("%i %i died\n", get_timestamp(philo->data), (philo->id + 1));
+		return (philo->data->dead);
+	}
+	pthread_mutex_unlock(&philo->data->data_race);
+	return (philo->data->dead);
 }
 
 void	*verify_run(void *philo)
@@ -41,13 +55,9 @@ void	*verify_run(void *philo)
 
 void	*start_run(t_philo *p)
 {
-	pthread_mutex_lock(&p->data->data_race);
-	printf("%i Philo: %d\n", get_timestamp(p->data), p->id);
-	usleep(100000);
-	printf("%i Philo: %d\n", get_timestamp(p->data), p->id);
-	usleep(100000);
-	printf("%i Philo: %d\n", get_timestamp(p->data), p->id);
-	pthread_mutex_unlock(&p->data->data_race);
+	int i = 0;
+	while (!is_dead(p))
+		i++;
 	return (0);
 }
 
