@@ -1,11 +1,17 @@
 #ifndef PHILO
 # define PHILO
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/time.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
+# define TRUE 1
+# define FALSE 0
+# define GREEN "\033[0;32m"
+# define RED "\033[1;31m"
+# define YELLOW "\033[0;33m"
+# define COLOUR_END "\033[0m"
 
 typedef struct s_data	t_data;
 

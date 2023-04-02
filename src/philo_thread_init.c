@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/01 02:39:23 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/02 02:59:01 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_dead(t_philo *philo)
 	{
 		philo->data->dead = 1;
 		pthread_mutex_unlock(&philo->data->data_race);
-		printf("%i %i died\n", get_timestamp(philo->data), (philo->id + 1));
+		printf("%i Philo %i died\n", get_timestamp(philo->data), (philo->id + 1));
 		return (philo->data->dead);
 	}
 	pthread_mutex_unlock(&philo->data->data_race);
