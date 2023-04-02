@@ -8,8 +8,9 @@ HEADER		=	./includes
 
 OBJ			=	$(patsubst src%, obj%, $(SRC:.c=.o))
 SRC			=	src/philo.c \
-				src/philo_utils.c \
-				src/philo_thread_init.c
+				src/philo_check_args.c \
+				src/philo_thread_init.c \
+				src/philo_utils.c
 
 CC			=	gcc
 FLAGS		=	-pthread -I${HEADER} -Wall -Wextra -Werror #-fsanitize=address
@@ -17,13 +18,13 @@ FLAGS		=	-pthread -I${HEADER} -Wall -Wextra -Werror #-fsanitize=address
 all:		obj $(NAME)
 
 $(NAME):	$(OBJ)
-			$(CC) $(FLAGS) -o $@ $^
+			@$(CC) $(FLAGS) -o $@ $^
 
 obj:
 			@mkdir -p obj
 
 obj/%.o:	src/%.c ./includes/philo.h
-			$(CC) $(FLAGS) -o $@ -c $<
+			@$(CC) $(FLAGS) -o $@ -c $<
 			@echo "$@ $(GREEN)created$(RESET)"
 
 valgrind:	all
