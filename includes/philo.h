@@ -11,12 +11,15 @@
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
+# define LGRAY "\001\033[0;37m\002"
 # define COLOUR_END "\033[0m"
 
 enum e_time_to{
 	die,
 	eat,
-	t_sleep
+	t_sleep,
+	think,
+	t_fork
 };
 
 typedef struct s_mutexes
@@ -42,27 +45,30 @@ typedef struct s_data
 	int					times_eatean;
 	long long			start_time;
 	long long			*eat_time;
-	suseconds_t			times[3];
+	long				times[3];
 	t_mutexes			mutex;
 }			t_data;
 
-//Parse
-t_data			*data(void);
+//Data func declaration
+t_data		*data(void);
 
 //philo_check_args
-long	ft_atoi(char *str);
-void	is_non_number(char **argv);
-int		check_args(int argc, char **argv);
+long		ft_atoi(char *str);
+void		is_non_number(char **argv);
+int			check_args(int argc, char **argv);
 
 //Thread Init
-void	*start_run(t_philo *p);
-void	*verify_run(void *philo);
-void	init_thread();
-void	init_var(t_philo **philo, pthread_t **tid);
-int		is_dead(t_philo *philo);
-int		can_start_run(t_data *data, int id);
+void		*start_dinner(void *philo);
+void		*verify_run(void *philo);
+void		init_thread();
+void		alloc_var_and_mutexes_var(t_philo **philo, pthread_t **tid);
+int			is_dead(t_philo *philo);
+int			can_start_run(t_data *data, int id);
 
 //Utils
-void	free_progam(void);
+void		free_progam(void);
+void		print_event(int id, int cod);
+void		only_one_philo(t_philo	*philo);
+long long	get_timestamp(long long start_time);
 
 #endif

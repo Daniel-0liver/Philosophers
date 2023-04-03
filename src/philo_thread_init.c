@@ -6,13 +6,13 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/02 16:52:32 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/04 00:14:22 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_var(t_philo **philo, pthread_t **tid)
+void	alloc_var_and_mutexes(t_philo **philo, pthread_t **tid)
 {
 	int	i;
 
@@ -36,12 +36,33 @@ void	init_var(t_philo **philo, pthread_t **tid)
 		pthread_mutex_init(&data()->mutex.forks[i], NULL);
 }
 
+void	*start_dinner(void *philo)
+{
+	t_philo	*p;
+
+	p = (t_philo*)philo;
+	// if (data()->nbr_philo == 1)
+	only_one_philo(p);
+	return (0);
+}
+
 void	init_thread()
 {
 	t_philo		*philo;
 	pthread_t	*tid;
+	int			i;
 
-	init_var(&philo, &tid);
+	alloc_var_and_mutexes(&philo, &tid);
+	data()->start_time = get_timestamp(0);
+	i = -1;
+	while (++i < data()->nbr_philo)
+	{
+		philo[i].id = i + 1;
+		pthread_create(&tid[i], NULL, start_dinner, (void *) &philo[i]);
+	}
+	i = -1;
+	while(++i < data()->nbr_philo)
+		pthread_join(tid[i], NULL);
 	free_progam();
 	free(philo);
 	free(tid);

@@ -31,7 +31,7 @@ valgrind:	all
 	valgrind --leak-check=full --show-leak-kinds=all --quiet ./philo 2 3 1 4 5
 
 hellgrind:	all
-	valgrind --quiet --tool=helgrind ./philo 2 3 1 4 5
+	valgrind --quiet --tool=helgrind ./philo 10 3 1 400 50
 
 clean:
 			@rm -rf $(OBJ) obj
