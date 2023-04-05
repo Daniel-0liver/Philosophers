@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 23:26:09 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/02 15:31:25 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/05 21:56:54 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ int	main(int argc, char *argv[])
 		printf("Opt: %s   [times_philosopher_must_eat]%s\n", YELLOW, COLOUR_END);
         return (1);
 	}
+	return (0);
 }

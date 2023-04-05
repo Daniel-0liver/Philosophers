@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/05 02:15:33 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/05 22:59:57 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,31 @@ void	*start_dinner(void *philo)
 	{
 		if (get_timestamp(data()->start_time) >= data()->times[die])
 		{
-			print_event(p->id, die);
+			pthread_mutex_lock(&data()->mutex.print);
+			print_died(p->id);
 			return (0);
 		}
-		pthread_mutex_lock(&data()->mutex.times_eatean);
-		print_event(p->id, t_fork);
-		print_event(p->id, eat);
-		print_event(p->id, t_sleep);
-		print_event(p->id, think);
-		pthread_mutex_unlock(&data()->mutex.times_eatean);
+		usleep(1000);
+		if (data()->ev_alive)
+			print_event(p->id, t_fork);
+		else
+			return (0);
+		usleep(1000);
+		if (data()->ev_alive)
+			print_event(p->id, eat);
+		else
+			return (0);
+		usleep(1000);
+		if (data()->ev_alive)
+			print_event(p->id, t_sleep);
+		else
+			return (0);
+		usleep(1000);
+		if (data()->ev_alive)
+			print_event(p->id, think);
+		else
+			return (0);
+		usleep(1000);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:38:32 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/05 02:16:00 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/05 23:01:00 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,10 @@ void	print_event(int id, int cod)
 	long	cur_time;
 
 	// usleep(data()->times[t_sleep] * 1000);
-	cur_time = get_timestamp(data()->start_time); //Need to be tested inside and outside
 	pthread_mutex_lock(&data()->mutex.print);
+	cur_time = get_timestamp(data()->start_time); //Need to be tested inside and outside
 	printf("%s%ldms%s %d ", LGRAY, cur_time, COLOUR_END, id);
-	if (cod == 0)
-	{
-		printf("%sdied%s\n", RED, COLOUR_END);
-		data()->ev_alive = FALSE;
-	}
-	else if (cod == 1)
+	if (cod == 1)
 		printf("%sis eating%s\n", GREEN, COLOUR_END);
 	else if (cod == 2)
 		printf("%sis sleeping%s\n", YELLOW, COLOUR_END);
@@ -55,5 +50,16 @@ void	print_event(int id, int cod)
 		printf("%sis thinking%s\n", YELLOW, COLOUR_END);
 	else if (cod == 4)
 		printf("%shas taken a fork%s\n", GREEN, COLOUR_END);
+	pthread_mutex_unlock(&data()->mutex.print);
+}
+
+void	print_died(int id)
+{
+	long	cur_time;
+
+	cur_time = get_timestamp(data()->start_time);
+	printf("%s%ldms%s %d ", LGRAY, cur_time, COLOUR_END, id);
+	printf("%sdied%s\n", RED, COLOUR_END);
+	data()->ev_alive = FALSE;
 	pthread_mutex_unlock(&data()->mutex.print);
 }

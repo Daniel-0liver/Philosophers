@@ -67,6 +67,7 @@ int			can_start_run(t_data *data, int id);
 
 //Utils
 void		free_progam(void);
+void		print_died(int id);
 void		print_event(int id, int cod);
 long long	get_timestamp(long long start_time);
 
