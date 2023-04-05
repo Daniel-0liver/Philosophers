@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/04 00:14:22 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/05 02:15:33 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,28 @@ void	*start_dinner(void *philo)
 	t_philo	*p;
 
 	p = (t_philo*)philo;
-	// if (data()->nbr_philo == 1)
-	only_one_philo(p);
-	return (0);
+	if (data()->nbr_philo == 1)
+	{
+		usleep(data()->times[die] * 1000);
+		print_event(p->id, die);
+		return (0);
+	}
+	data()->eat_time[p->id - 1] = get_timestamp(0);
+	while (TRUE)
+	{
+		if (get_timestamp(data()->start_time) >= data()->times[die])
+		{
+			print_event(p->id, die);
+			return (0);
+		}
+		pthread_mutex_lock(&data()->mutex.times_eatean);
+		print_event(p->id, t_fork);
+		print_event(p->id, eat);
+		print_event(p->id, t_sleep);
+		print_event(p->id, think);
+		pthread_mutex_unlock(&data()->mutex.times_eatean);
+	}
+	return (NULL);
 }
 
 void	init_thread()

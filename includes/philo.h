@@ -68,7 +68,6 @@ int			can_start_run(t_data *data, int id);
 //Utils
 void		free_progam(void);
 void		print_event(int id, int cod);
-void		only_one_philo(t_philo	*philo);
 long long	get_timestamp(long long start_time);
 
 #endif
