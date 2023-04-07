@@ -71,4 +71,7 @@ void		print_died(int id);
 void		print_event(int id, int cod);
 long long	get_timestamp(long long start_time);
 
+//Routine
+int	is_alive();
+
 #endif
