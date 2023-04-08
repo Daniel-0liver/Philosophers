@@ -14,7 +14,7 @@ SRC			=	src/philo.c \
 				src/philo_thread_init.c
 
 CC			=	gcc
-FLAGS		=	-pthread -I${HEADER} -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS		=	-pthread -I${HEADER} -Wall -Wextra -Werror -g -fsanitize=leak
 
 all:		obj $(NAME)
 
@@ -29,10 +29,10 @@ obj/%.o:	src/%.c ./includes/philo.h
 			@echo "$@ $(GREEN)created$(RESET)"
 
 valgrind:	all
-	valgrind --leak-check=full --show-leak-kinds=all --quiet ./philo 10 100 300 4 5
+	valgrind --leak-check=full --show-leak-kinds=all --quiet ./philo 10 10 300 4 5
 
 hellgrind:	all
-	valgrind --quiet --tool=helgrind ./philo 10 100 300 400
+	valgrind --quiet --tool=helgrind ./philo 10 10 300 400
 
 clean:
 			@rm -rf $(OBJ) obj

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 01:04:26 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/08 01:26:57 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/08 16:29:41 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,21 @@ int			check_args(int argc, char **argv);
 
 //Thread Init
 void		*start_dinner(void *philo);
-void		*verify_run(void *philo);
 void		init_thread(void);
-void		alloc_var_and_mutexes_var(t_philo **philo, pthread_t **tid);
-int			is_dead(t_philo *philo);
-int			can_start_run(t_data *data, int id);
+void		alloc_var_and_mutexes(t_philo **philo, pthread_t **tid);
 
 //Utils
 void		free_progam(void);
-void		print_died(int id);
 void		print_event(int id, int cod);
 long long	get_timestamp(long long start_time);
 void		right_left_fork(t_philo *p);
+long long	my_sleep(long long time_to);
 
 
 //Routine
 int			is_alive(void);
 int			get_fork(t_philo *p);
+void		eat_time(t_philo *p);
+
 
 #endif

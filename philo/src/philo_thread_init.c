@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/08 01:17:43 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/08 20:24:06 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ void	*start_dinner(void *philo)
 		print_event(p->id, die);
 		return (0);
 	}
+	pthread_mutex_lock(&data()->mutex.still_alive);
 	data()->eat_time[p->id - 1] = get_timestamp(0);
+	right_left_fork(p);
+	pthread_mutex_unlock(&data()->mutex.still_alive);
 	while (is_alive())
 	{
 		if (get_fork(p))
-			continue ;
+			my_sleep(data()->times[t_sleep]) ;
 	}
 	return (0);
 }
