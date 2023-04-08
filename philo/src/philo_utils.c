@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:38:32 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/07 01:28:57 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/08 01:32:28 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,15 @@ void	print_died(int id)
 {
 	print_event(id, die);
 	data()->ev_alive = FALSE;
+	pthread_mutex_unlock(&data()->mutex.still_alive);
+}
+
+void	right_left_fork(t_philo *p)
+{
+	if (p->id == 1)
+		p->r_fork = data()->nbr_philo - 1;
+	else
+		p->r_fork = p->id - 2;
+	if (p->id % 2 == 0)
+	
 }

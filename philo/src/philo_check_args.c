@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 14:23:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/05 21:49:16 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/08 01:02:42 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_isdigit(int c)
 void	is_non_number(char **argv)
 {
 	int	j;
-	int i;
+	int	i;
 
 	i = 1;
 	while (argv[i])
@@ -70,7 +70,7 @@ int	check_args(int argc, char **argv)
 	data()->error = 0;
 	is_non_number(argv);
 	data()->nbr_philo = ft_atoi(argv[1]);
-	data()->times[die]= ft_atoi(argv[2]);
+	data()->times[die] = ft_atoi(argv[2]);
 	data()->times[eat] = ft_atoi(argv[3]);
 	data()->times[t_sleep] = ft_atoi(argv[4]);
 	if (argc == 6)

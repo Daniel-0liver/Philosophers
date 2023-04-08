@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/07 01:31:17 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/08 01:17:43 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*start_dinner(void *philo)
 {
 	t_philo	*p;
 
-	p = (t_philo*)philo;
+	p = (t_philo *)philo;
 	if (data()->nbr_philo == 1)
 	{
 		usleep(data()->times[die] * 1000);
@@ -50,12 +50,13 @@ void	*start_dinner(void *philo)
 	data()->eat_time[p->id - 1] = get_timestamp(0);
 	while (is_alive())
 	{
-		usleep(1000);
+		if (get_fork(p))
+			continue ;
 	}
 	return (0);
 }
 
-void	init_thread()
+void	init_thread(void)
 {
 	t_philo		*philo;
 	pthread_t	*tid;
@@ -70,7 +71,7 @@ void	init_thread()
 		pthread_create(&tid[i], NULL, start_dinner, (void *) &philo[i]);
 	}
 	i = -1;
-	while(++i < data()->nbr_philo)
+	while (++i < data()->nbr_philo)
 		pthread_join(tid[i], NULL);
 	free_progam();
 	free(philo);
