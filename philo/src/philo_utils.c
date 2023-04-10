@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:38:32 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/08 20:25:58 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/10 01:32:54 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,30 @@ void	free_progam(void)
 
 void	print_event(int id, int cod)
 {
-	long	cur_time;
+	long	t;
 
-	// usleep(data()->times[t_sleep] * 1000);
 	pthread_mutex_lock(&data()->mutex.print);
-	cur_time = get_timestamp(data()->start_time); //Need to be tested inside and outside
-	printf("%s%ldms%s %d ", LGRAY, cur_time, COLOUR_END, id);
+	t = get_timestamp(data()->start_time);
 	if (cod == 0)
 	{
-		printf("%sdied%s\n", RED, COLOUR_END);
+		printf("%ld ms %d %sdied%s\n", t, id, RED, COLOUR_END);
 		data()->ev_alive = FALSE;
 	}
 	else if (cod == 1)
-		printf("%sis eating%s\n", GREEN, COLOUR_END);
+		printf("%ld ms %d %sis eating%s\n", t, id, GREEN, COLOUR_END);
 	else if (cod == 2)
-		printf("%sis sleeping%s\n", YELLOW, COLOUR_END);
+		printf("%ld ms %d %sis sleeping%s\n", t, id, YELLOW, COLOUR_END);
 	else if (cod == 3)
-		printf("%sis thinking%s\n", YELLOW, COLOUR_END);
+		printf("%ld ms %d %sis thinking%s\n", t, id, YELLOW, COLOUR_END);
 	else if (cod == 4)
-		printf("%shas taken a fork%s\n", GREEN, COLOUR_END);
+		printf("%ld ms %d %shas taken a fork%s\n", t, id, GREEN, COLOUR_END);
 	pthread_mutex_unlock(&data()->mutex.print);
 }
 
 void	right_left_fork(t_philo *p)
 {
 	int	tmp;
-	
+
 	if (p->id == 1)
 	{
 		p->l_fork = data()->nbr_philo - 1;
@@ -80,7 +78,7 @@ void	right_left_fork(t_philo *p)
 	}
 }
 
-long long	my_sleep(long long t)
+void	time_counter(int t)
 {
 	struct timeval	time;
 	long long		start;
@@ -90,7 +88,6 @@ long long	my_sleep(long long t)
 	while (get_timestamp(start) <= t)
 	{
 		if (!is_alive())
-			return (0);
+			return ;
 	}
-	return (start + t);
 }

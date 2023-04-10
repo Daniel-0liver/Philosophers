@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:38:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/08 17:45:47 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/10 01:32:13 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,22 @@ void	eat_time(t_philo *p)
 	data()->eat_time[p->id - 1] = get_timestamp(0);
 	pthread_mutex_unlock(&data()->mutex.still_alive);
 	print_event(p->id, eat);
-	my_sleep(data()->times[eat]);
+	time_counter(data()->times[eat]);
 	if (++p->meals == data()->times_to_eat)
 	{
 		pthread_mutex_lock(&data()->mutex.still_alive);
 		data()->times_eatean++;
 		pthread_mutex_unlock(&data()->mutex.still_alive);
 	}
+}
+
+void	sleep_think_event(t_philo *p)
+{
+	if (!is_alive())
+		return ;
+	print_event(p->id, t_sleep);
+	time_counter(data()->times[t_sleep]);
+	if (!is_alive())
+		return ;
+	print_event(p->id, think);
 }

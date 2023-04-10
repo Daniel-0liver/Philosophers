@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/08 20:24:06 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/10 01:32:19 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	*start_dinner(void *philo)
 	while (is_alive())
 	{
 		if (get_fork(p))
-			my_sleep(data()->times[t_sleep]) ;
+			sleep_think_event(p);
 	}
 	return (0);
 }
