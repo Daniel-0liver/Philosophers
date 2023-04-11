@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:38:32 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/10 01:32:54 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/10 23:50:39 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_progam(void)
 
 	pthread_mutex_destroy(&data()->mutex.print);
 	pthread_mutex_destroy(&data()->mutex.still_alive);
-	pthread_mutex_destroy(&data()->mutex.times_eatean);
 	i = -1;
 	while (++i < data()->nbr_philo)
 		pthread_mutex_destroy(&data()->mutex.forks[i]);
@@ -38,12 +37,13 @@ void	print_event(int id, int cod)
 {
 	long	t;
 
-	pthread_mutex_lock(&data()->mutex.print);
 	t = get_timestamp(data()->start_time);
 	if (cod == 0)
 	{
+		pthread_mutex_lock(&data()->mutex.print);
 		printf("%ld ms %d %sdied%s\n", t, id, RED, COLOUR_END);
 		data()->ev_alive = FALSE;
+		pthread_mutex_unlock(&data()->mutex.print);
 	}
 	else if (cod == 1)
 		printf("%ld ms %d %sis eating%s\n", t, id, GREEN, COLOUR_END);
@@ -53,7 +53,6 @@ void	print_event(int id, int cod)
 		printf("%ld ms %d %sis thinking%s\n", t, id, YELLOW, COLOUR_END);
 	else if (cod == 4)
 		printf("%ld ms %d %shas taken a fork%s\n", t, id, GREEN, COLOUR_END);
-	pthread_mutex_unlock(&data()->mutex.print);
 }
 
 void	right_left_fork(t_philo *p)
@@ -78,7 +77,7 @@ void	right_left_fork(t_philo *p)
 	}
 }
 
-void	time_counter(int t)
+void	time_counter(int t, t_philo *p)
 {
 	struct timeval	time;
 	long long		start;
@@ -87,7 +86,7 @@ void	time_counter(int t)
 	start = time.tv_sec * 1000 + time.tv_usec / 1000;
 	while (get_timestamp(start) <= t)
 	{
-		if (!is_alive())
+		if (!is_alive(p))
 			return ;
 	}
 }

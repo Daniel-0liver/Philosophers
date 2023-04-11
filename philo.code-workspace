@@ -2,6 +2,16 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../../Repo/Philosophers"
 		}
-	]
+	],
+	"settings": {
+		"files.associations": {
+			"array": "c",
+			"string": "c",
+			"string_view": "c"
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 01:04:26 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/10 01:18:22 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/10 21:33:58 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_mutexes
 	pthread_mutex_t		print;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		still_alive;
-	pthread_mutex_t		times_eatean;
 }			t_mutexes;
 
 typedef struct s_philo
@@ -78,15 +77,14 @@ void		alloc_var_and_mutexes(t_philo **philo, pthread_t **tid);
 
 //Utils
 void		free_progam(void);
-void		time_counter(int t);
 void		right_left_fork(t_philo *p);
+void		time_counter(int t, t_philo *p);
 void		print_event(int id, int cod);
 long long	get_timestamp(long long start_time);
 
 //Routine
-int			is_alive(void);
-int			get_fork(t_philo *p);
-void		eat_time(t_philo *p);
+int			is_alive(t_philo *p);
+int			eat_time(t_philo *p);
 void		sleep_think_event(t_philo *p);
 
 #endif
