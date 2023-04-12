@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:38:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/10 21:23:48 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:08:38 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	sleep_think_event(t_philo *p)
 		return ;
 	print_event(p->id, t_sleep);
 	time_counter(data()->times[t_sleep], p);
+	if (!is_alive(p))
+		return ;
 	print_event(p->id, think);
 	if (++p->meals == data()->times_to_eat)
 	{
