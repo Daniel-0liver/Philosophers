@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:38:32 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/13 01:44:56 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:03:34 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,3 @@ void	right_left_fork(t_philo *p)
 	}
 }
 
-void	time_counter(int t, t_philo *p)
-{
-	struct timeval	time;
-	long long		start;
-
-	gettimeofday(&time, NULL);
-	start = time.tv_sec * 1000 + time.tv_usec / 1000;
-	while (get_timestamp(start) <= t)
-	{
-		if (!is_alive(p))
-			return ;
-	}
-}

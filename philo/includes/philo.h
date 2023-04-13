@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 01:04:26 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/10 21:33:58 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:04:08 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void		alloc_var_and_mutexes(t_philo **philo, pthread_t **tid);
 //Utils
 void		free_progam(void);
 void		right_left_fork(t_philo *p);
-void		time_counter(int t, t_philo *p);
 void		print_event(int id, int cod);
 long long	get_timestamp(long long start_time);
 
@@ -86,5 +85,8 @@ long long	get_timestamp(long long start_time);
 int			is_alive(t_philo *p);
 int			eat_time(t_philo *p);
 void		sleep_think_event(t_philo *p);
+void		time_counter_eat(int t, t_philo *p);
+void		time_counter_sleep(int t, t_philo *p);
+
 
 #endif

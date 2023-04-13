@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:38:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/13 01:39:17 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:05:22 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ int	eat_time(t_philo *p)
 		pthread_mutex_unlock(&data()->mutex.forks[p->r_fork]);
 		return (FALSE);
 	}
-	data()->eat_time[p->id - 1] = get_timestamp(0);
 	print_event(p->id, t_fork);
 	print_event(p->id, eat);
-	time_counter(data()->times[eat], p);
+	time_counter_eat(data()->times[eat], p);
 	pthread_mutex_unlock(&data()->mutex.forks[p->l_fork]);
 	pthread_mutex_unlock(&data()->mutex.forks[p->r_fork]);
 	return (TRUE);
@@ -62,8 +61,37 @@ void	sleep_think_event(t_philo *p)
 	if (!is_alive(p))
 		return ;
 	print_event(p->id, t_sleep);
-	time_counter(data()->times[t_sleep], p);
+	time_counter_sleep(data()->times[t_sleep], p);
 	if (!is_alive(p))
 		return ;
 	print_event(p->id, think);
+}
+
+void	time_counter_eat(int t, t_philo *p)
+{
+	struct timeval	time;
+	long long		start;
+
+	data()->eat_time[p->id - 1] = get_timestamp(0);
+	gettimeofday(&time, NULL);
+	start = time.tv_sec * 1000 + time.tv_usec / 1000;
+	while (get_timestamp(start) < t)
+	{
+		if (!is_alive(p))
+			return ;
+	}
+}
+
+void	time_counter_sleep(int t, t_philo *p)
+{
+	struct timeval	time;
+	long long		start;
+
+	gettimeofday(&time, NULL);
+	start = time.tv_sec * 1000 + time.tv_usec / 1000;
+	while (get_timestamp(start) < t)
+	{
+		if (!is_alive(p))
+			return ;
+	}
 }
