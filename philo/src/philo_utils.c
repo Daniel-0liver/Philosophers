@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:38:32 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/13 11:03:34 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/13 12:44:16 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	print_event(int id, int cod)
 	long	t;
 
 	t = get_timestamp(data()->start_time);
+	pthread_mutex_lock(&data()->mutex.print);
 	if (cod == 0)
 	{
 		printf("%ld ms %d %sdied%s\n", t, id, RED, COLOUR_END);
@@ -51,6 +52,7 @@ void	print_event(int id, int cod)
 		printf("%ld ms %d %sis thinking%s\n", t, id, YELLOW, COLOUR_END);
 	else if (cod == 4)
 		printf("%ld ms %d %shas taken a fork%s\n", t, id, GREEN, COLOUR_END);
+	pthread_mutex_unlock(&data()->mutex.print);
 }
 
 void	right_left_fork(t_philo *p)
@@ -74,4 +76,3 @@ void	right_left_fork(t_philo *p)
 		p->r_fork = tmp;
 	}
 }
-
