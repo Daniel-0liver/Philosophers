@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:38:32 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/10 23:50:39 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/13 01:44:56 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ void	print_event(int id, int cod)
 	t = get_timestamp(data()->start_time);
 	if (cod == 0)
 	{
-		pthread_mutex_lock(&data()->mutex.print);
 		printf("%ld ms %d %sdied%s\n", t, id, RED, COLOUR_END);
 		data()->ev_alive = FALSE;
-		pthread_mutex_unlock(&data()->mutex.print);
 	}
 	else if (cod == 1)
 		printf("%ld ms %d %sis eating%s\n", t, id, GREEN, COLOUR_END);

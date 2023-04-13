@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:38:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/11 19:08:38 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/13 01:39:17 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,16 @@ int	is_alive(t_philo *p)
 int	eat_time(t_philo *p)
 {
 	pthread_mutex_lock(&data()->mutex.forks[p->r_fork]);
+	pthread_mutex_lock(&data()->mutex.forks[p->l_fork]);
 	if (!is_alive(p))
 	{
+		pthread_mutex_unlock(&data()->mutex.forks[p->l_fork]);
 		pthread_mutex_unlock(&data()->mutex.forks[p->r_fork]);
 		return (FALSE);
 	}
-	pthread_mutex_lock(&data()->mutex.forks[p->l_fork]);
+	data()->eat_time[p->id - 1] = get_timestamp(0);
 	print_event(p->id, t_fork);
 	print_event(p->id, eat);
-	pthread_mutex_lock(&data()->mutex.still_alive);
-	data()->eat_time[p->id - 1] = get_timestamp(0);
-	pthread_mutex_unlock(&data()->mutex.still_alive);
 	time_counter(data()->times[eat], p);
 	pthread_mutex_unlock(&data()->mutex.forks[p->l_fork]);
 	pthread_mutex_unlock(&data()->mutex.forks[p->r_fork]);
@@ -54,6 +53,12 @@ int	eat_time(t_philo *p)
 
 void	sleep_think_event(t_philo *p)
 {
+	if (++p->meals == data()->times_to_eat)
+	{
+		pthread_mutex_lock(&data()->mutex.still_alive);
+		data()->times_eatean++;
+		pthread_mutex_unlock(&data()->mutex.still_alive);
+	}
 	if (!is_alive(p))
 		return ;
 	print_event(p->id, t_sleep);
@@ -61,10 +66,4 @@ void	sleep_think_event(t_philo *p)
 	if (!is_alive(p))
 		return ;
 	print_event(p->id, think);
-	if (++p->meals == data()->times_to_eat)
-	{
-		pthread_mutex_lock(&data()->mutex.still_alive);
-		data()->times_eatean++;
-		pthread_mutex_unlock(&data()->mutex.still_alive);
-	}
 }
