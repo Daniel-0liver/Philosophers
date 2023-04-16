@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 21:38:57 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/13 12:44:46 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/16 23:28:07 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	is_alive(t_philo *p)
 		pthread_mutex_unlock(&data()->mutex.still_alive);
 		return (FALSE);
 	}
+	pthread_mutex_unlock(&data()->mutex.still_alive);
 	if (data()->eat_time[p->id - 1] && get_timestamp
 		(data()->eat_time[p->id - 1]) > data()->times[die])
 	{
@@ -28,21 +29,21 @@ int	is_alive(t_philo *p)
 		pthread_mutex_unlock(&data()->mutex.still_alive);
 		return (FALSE);
 	}
-	pthread_mutex_unlock(&data()->mutex.still_alive);
 	return (TRUE);
 }
 
 int	eat_time(t_philo *p)
 {
 	pthread_mutex_lock(&data()->mutex.forks[p->r_fork]);
+	print_event(p->id, t_fork);
 	pthread_mutex_lock(&data()->mutex.forks[p->l_fork]);
+	print_event(p->id, t_fork);
 	if (!is_alive(p))
 	{
 		pthread_mutex_unlock(&data()->mutex.forks[p->l_fork]);
 		pthread_mutex_unlock(&data()->mutex.forks[p->r_fork]);
 		return (FALSE);
 	}
-	print_event(p->id, t_fork);
 	print_event(p->id, eat);
 	time_counter_eat(data()->times[eat], p);
 	pthread_mutex_unlock(&data()->mutex.forks[p->l_fork]);

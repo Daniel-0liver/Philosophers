@@ -1,6 +1,12 @@
 {
 	"folders": [
 		{
+			"path": "../Minishell"
+		},
+		{
+			"path": "../pipex"
+		},
+		{
 			"path": "."
 		}
 	],

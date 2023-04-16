@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:52:16 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/13 01:32:49 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/16 23:20:29 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	alloc_var_and_mutexes(t_philo **philo, pthread_t **tid)
 		data()->eat_time[i] = 0;
 	data()->ev_alive = TRUE;
 	data()->times_eatean = 0;
-	pthread_mutex_init(&data()->mutex.print, NULL);
 	pthread_mutex_init(&data()->mutex.still_alive, NULL);
 	data()->mutex.forks = malloc(sizeof(pthread_mutex_t) * data()->nbr_philo);
 	i = -1;
@@ -44,6 +43,7 @@ void	*start_dinner(void *philo)
 	{
 		usleep(data()->times[die] * 1000);
 		print_event(p->id, die);
+		pthread_mutex_unlock(&data()->mutex.still_alive);
 		return (0);
 	}
 	pthread_mutex_lock(&data()->mutex.still_alive);

@@ -4,12 +4,13 @@
 	{
 		"version": "0.2.0",
 		"configurations": [
+
 			{
 				"name": "Debug",
 				"type": "cppdbg",
 				"request": "launch",
 				"program": "${workspaceFolder}/philo/philo",
-				"args": ["4", "100", "10", "10"],
+				"args": ["4", "200", "10", "10"],
 				"stopAtEntry": true,
 				"cwd": "${workspaceFolder}/philo",
 				"environment": [],

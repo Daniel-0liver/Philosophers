@@ -13,8 +13,8 @@ SRC			=	src/philo.c \
 				src/philo_check_args.c \
 				src/philo_thread_init.c
 
-CC			=	gcc
-FLAGS		=	-pthread -I${HEADER} -Wall -Wextra -Werror -g -fsanitize=thread
+CC			=	cc
+FLAGS		=	-pthread -I${HEADER} -Wall -Wextra -Werror -fsanitize=thread -g
 
 all:		obj $(NAME)
 

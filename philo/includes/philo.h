@@ -6,7 +6,7 @@
 /*   By: dateixei <dateixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 01:04:26 by dateixei          #+#    #+#             */
-/*   Updated: 2023/04/13 11:04:08 by dateixei         ###   ########.fr       */
+/*   Updated: 2023/04/16 23:23:41 by dateixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ enum e_time_to{
 
 typedef struct s_mutexes
 {
-	pthread_mutex_t		print;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		still_alive;
 }			t_mutexes;
@@ -52,13 +51,13 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int					error;
-	int					times_to_eat;
 	int					ev_alive;
 	int					nbr_philo;
+	int					times_to_eat;
 	int					times_eatean;
+	long				times[3];
 	long long			start_time;
 	long long			*eat_time;
-	long				times[3];
 	t_mutexes			mutex;
 }			t_data;
 
@@ -87,6 +86,5 @@ int			eat_time(t_philo *p);
 void		sleep_think_event(t_philo *p);
 void		time_counter_eat(int t, t_philo *p);
 void		time_counter_sleep(int t, t_philo *p);
-
 
 #endif
